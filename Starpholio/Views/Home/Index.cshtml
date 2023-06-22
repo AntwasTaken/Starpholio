@@ -1,23 +1,24 @@
-﻿@{
-    ViewData["Title"] = "StarPholio";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>StarPholio</title>
     <style>
         body {
             background: linear-gradient(-45deg, cyan, magenta, yellow);
-            color: silver;
-            font-family: "Segoe UI", Arial, sans-serif;
+            color: black;
+            font-family: "Helvetica", sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
@@ -33,13 +34,27 @@
 
         input[type="text"],
         input[type="password"],
+        input[type="email"],
+        input[type="date"],
         input[type="submit"] {
             margin-bottom: 10px;
-            padding: 10px;
+            padding: 15px;
+            width: 100%;
+            box-sizing: border-box;
             border: none;
             border-radius: 5px;
-            font-family: "Segoe UI", Arial, sans-serif;
+            font-family: "Helvetica", sans-serif;
+            transition: transform 0.3s;
+            font-size: 16px;
         }
+
+            input[type="text"]:focus,
+            input[type="password"]:focus,
+            input[type="email"]:focus,
+            input[type="date"]:focus,
+            input[type="submit"]:focus {
+                transform: scale(1.1);
+            }
 
         input[type="submit"] {
             background-color: silver;
@@ -51,52 +66,77 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: white;
-            padding: 20px;
+            padding: 40px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
         }
 
         .polaroid {
-            width: 300px;
-            height: 400px;
+            width: 400px;
+            height: 500px;
             position: relative;
             overflow: hidden;
+            margin-bottom: 40px;
+            background-color: white;
+            border: 10px solid silver;
+            border-radius: 10px;
         }
-
-            .polaroid::before {
-                content: "";
-                position: absolute;
-                top: -20px;
-                left: -20px;
-                width: 100%;
-                height: 100%;
-                border: 20px solid silver;
-            }
 
         .logo {
             position: absolute;
-            bottom: 20px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
+        }
+
+        .frames-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .frame-register,
+        .frame-login {
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 40px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="frame">
-            <div class="polaroid">
-                <h1>StarPholio</h1>
-                <div class="logo">
-                    <img src="path/to/logo.png" alt="Logo">
+        <div class="frames-container">
+            <div class="frame-register">
+                <h2>Register</h2>
+                <form>
+                    <input type="email" placeholder="Email" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="text" placeholder="Username" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="password" placeholder="Password" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="date" placeholder="Date of Birth" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="text" placeholder="Location" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="submit" value="Register">
+                </form>
+            </div>
+
+            <div class="frame">
+                <div class="polaroid">
+                    <h1>StarPholio</h1>
+                    <div class="logo">
+                        <img src="path/to/logo.png" alt="Logo">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <form action="/Auth/Login" method="post">
-            <input type="text" placeholder="Username" name="Username" style="margin-bottom: 10px;">
-            <input type="password" placeholder="Password" name="Password" style="margin-bottom: 10px;">
-            <input type="submit" value="Login">
-        </form>
+            <div class="frame-login">
+                <h2>Login</h2>
+                <form>
+                    <input type="text" placeholder="Username" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="password" placeholder="Password" style="margin-bottom: 10px; width: 100%;" size="30">
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
