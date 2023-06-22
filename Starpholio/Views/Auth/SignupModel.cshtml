@@ -1,0 +1,15 @@
+﻿@model Starpholio.Models.SignupModel
+
+@using (Html.BeginForm("Signup", "Auth", FormMethod.Post))
+{
+    @Html.LabelFor(model => model.Username)
+    @Html.TextBoxFor(model => model.Username)
+    <br />
+    @Html.LabelFor(model => model.Password)
+    @Html.PasswordFor(model => model.Password)
+    <br />
+    @Html.LabelFor(model => model.ConfirmPassword)
+    @Html.PasswordFor(model => model.ConfirmPassword)
+    <br />
+    <input type="submit" value="Signup" />
+}
