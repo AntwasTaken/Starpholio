@@ -1,11 +1,13 @@
-﻿using Starpholio.Data;
+﻿using Microsoft.AspNetCore.Identity;
+using Starpholio.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+
 namespace Starpholio.Models
 
     
 {
-    public class LoginSys
+    public class LoginSys : IdentityUser
     {
         [Key]
         public int UserID { get; set; }

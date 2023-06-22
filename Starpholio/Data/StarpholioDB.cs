@@ -1,16 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Starpholio.Models;
+﻿using System.Data.Entity;
 
 namespace Starpholio.Data
 {
     public class StarpholioDB : DbContext
     {
-        public DbSet<LoginSys> Users { get; set; }
+        // DbSet properties and other configurations
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public StarpholioDB() : base("name=YourConnectionStringName")
+        {
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Configure your database schema here
-            modelBuilder.Entity<LoginSys>().ToTable("Users");
         }
     }
 }

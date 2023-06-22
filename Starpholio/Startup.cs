@@ -8,6 +8,7 @@ using Starpholio.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Starpholio.Models;
+using Starpholio.Controllers;
 
 namespace Starpholio
 {
@@ -23,11 +24,23 @@ namespace Starpholio
         // This method is called by the runtime to configure services.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            services.AddDistributedMemoryCache();
             services.AddControllersWithViews();
-            services.AddScoped<AuthService>();
-            services.AddDbContext<StarpholioDB>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDistributedMemoryCache(); // This line configures a default in-memory cache for storing session data
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set the session timeout as desired
+                options.Cookie.HttpOnly = true; // Ensure the session cookie is accessible only via HTTP
+                options.Cookie.IsEssential = true; // Mark the session cookie as essential for GDPR compliance
+            });
+            services.AddScoped<AuthService>(); // Register the AuthService
+            /*services.AddDbContext<StarpholioDB>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));*/
         }
+
 
         // This method is called by the runtime to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,8 +57,9 @@ namespace Starpholio
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
+
 
             app.UseEndpoints(endpoints =>
             {
