@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
+using Starpholio.Data;
 
 namespace WebApplication2.Data.Migrations
 {

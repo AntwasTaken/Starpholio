@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Starpholio.Data;
 using Starpholio.Models;
@@ -14,7 +14,6 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Globalization;
-
 
 
 
@@ -94,12 +93,9 @@ namespace Starpholio.Controllers
         }
         //MUST CHANGE VIEW TO FIT BOTH AT THE SAME TIME, EQUAL TO LANDING PAGE
         // GET: Categories/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            
             Categories categories = db.Categories.Find(id);
             if (categories == null)
             {
@@ -173,4 +169,4 @@ namespace Starpholio.Controllers
             base.Dispose(disposing);
         }
     }
-}
+}*/

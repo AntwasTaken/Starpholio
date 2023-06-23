@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
 
 namespace Starpholio.Controllers
 {
@@ -9,4 +9,4 @@ namespace Starpholio.Controllers
             return View();
         }
     }
-}
+}*/
