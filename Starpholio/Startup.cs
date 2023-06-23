@@ -36,7 +36,7 @@ namespace Starpholio
                 options.Cookie.HttpOnly = true; // Ensure the session cookie is accessible only via HTTP
                 options.Cookie.IsEssential = true; // Mark the session cookie as essential for GDPR compliance
             });
-            services.AddScoped<AuthService>(); // Register the AuthService
+            //services.AddScoped<AuthService>(); // Register the AuthService REMOVE COMMENT LATER
             /*services.AddDbContext<StarpholioDB>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));*/
         }

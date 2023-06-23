@@ -24,7 +24,7 @@ namespace Starpholio.Models
 }
 
 
-public class AuthService
+/*public class AuthService
 {
     private readonly StarpholioDB _dbContext;
 
@@ -53,3 +53,4 @@ public class AuthService
         return false;
     }
 }
+*/
