@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(-45deg, cyan, magenta, yellow);
+            color: black;
+            font-family: "Helvetica", sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .frame {
+            flex: 1;
+            height: calc(100vh - 40px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            margin-right: 20px;
+        }
+
+        .frame-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border: 10px solid black;
+            border-radius: 50%;
+            background-color: black;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+            .profile-picture img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .frame-polaroid {
+            flex: 2;
+            height: calc(100vh - 40px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 10px solid silver;
+            border-radius: 10px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .frame-calendar {
+            flex: 1;
+            height: calc(100vh - 40px);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .post {
+            width: 700px; /* Tamanho fixo da largura do post */
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .post-profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+            .post-profile-picture img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .post-username {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .post-content {
+            text-align: center;
+        }
+
+        .post-icons {
+            margin-top: 10px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .follow-btn {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .followers,
+        .following {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 5px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Calendário
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultView: 'month',
+                editable: true,
+                eventLimit: true,
+                events: [
+                    {
+                        title: 'Evento 1',
+                        start: '2023-06-01',
+                        end: '2023-06-03'
+                    },
+                    {
+                        title: 'Evento 2',
+                        start: '2023-06-07',
+                        end: '2023-06-10'
+                    },
+                    {
+                        title: 'Evento 3',
+                        start: '2023-06-12',
+                        end: '2023-06-15'
+                    },
+                    // ... adicione mais eventos aqui ...
+                ],
+                eventRender: function (event, element) {
+                    // Adiciona uma classe CSS personalizada ao elemento do evento
+                    element.addClass('calendar-event');
+                }
+            });
+
+            // Eventos próximos
+            var currentDate = moment().format('YYYY-MM-DD');
+            var upcomingEvents = $('#calendar').fullCalendar('clientEvents', function (event) {
+                return moment(event.start).isSameOrAfter(currentDate);
+            });
+
+            upcomingEvents.sort(function (a, b) {
+                return moment(a.start).diff(moment(b.start));
+            });
+
+            var eventsList = '';
+            for (var i = 0; i < upcomingEvents.length; i++) {
+                eventsList += '<li>' + upcomingEvents[i].title + ': ' + moment(upcomingEvents[i].start).format('DD/MM/YYYY') + '</li>';
+            }
+
+            document.getElementById('upcoming-events').innerHTML = eventsList;
+
+            // Botão "like"
+            $('.like').on('click', function () {
+                $(this).toggleClass('clicked');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="frame frame-profile">
+            <div class="profile-picture">
+                <img src="profile_picture.jpg" alt="Profile Picture">
+            </div>
+            <button class="follow-btn">Follow</button>
+            <div class="follow-counts">
+                <span class="followers">152 followers</span>
+                <br>
+                <span class="following">207 following</span>
+            </div>
+            <h2>John Doe</h2>
+            <p>Age: 25</p>
+            <p>Location: New York</p>
+            <p>Camera: Canon EOS R</p>
+            <p>Photography: Landscape</p>
+        </div>
+        <div class="frame frame-polaroid">
+            <h1>Posts</h1>
+            <div class="posts">
+                <div class="post">
+                    <div class="post-profile-picture">
+                        <img src="post1_profile.jpg" alt="Post 1 Profile Picture">
+                    </div>
+                    <h3 class="post-username">Username1</h3>
+                    <p class="post-content">This is the content of the post. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu sem vitae tellus mollis varius. Nunc dignissim lorem in volutpat viverra.</p>
+                    <div class="post-icons">
+                        <span class="like">Like</span>
+                        <span class="comment">Comment</span>
+                        <span class="share">Share</span>
+                    </div>
+                </div>
+                <div class="post">
+                    <div class="post-profile-picture">
+                        <img src="post2_profile.jpg" alt="Post 2 Profile Picture">
+                    </div>
+                    <h3 class="post-username">Username2</h3>
+                    <p class="post-content">This is the content of the post. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu sem vitae tellus mollis varius. Nunc dignissim lorem in volutpat viverra.</p>
+                    <div class="post-icons">
+                        <span class="like">Like</span>
+                        <span class="comment">Comment</span>
+                        <span class="share">Share</span>
+                    </div>
+                </div>
+                <!-- Adicione mais posts aqui -->
+            </div>
+        </div>
+        <div class="frame frame-calendar">
+            <h1>Calendar</h1>
+            <div id="calendar"></div>
+            <h2>Upcoming Events</h2>
+            <ul id="upcoming-events"></ul>
+        </div>
+    </div>
+    <div class="logo">
+        Made by John Doe
+    </div>
+</body>
+</html>
